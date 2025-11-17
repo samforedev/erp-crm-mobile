@@ -5,9 +5,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.metacho.erp_crm_mobile.ui.common.ui.components.MainWithDrawer
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
-import com.metacho.erp_crm_mobile.ui.home.ui.HomeScreen
-import com.metacho.erp_crm_mobile.ui.login.data.LoginRepository
+import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginScreen
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginViewModel
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginViewModelFactory
@@ -41,7 +41,7 @@ fun AppNavigation(
         }
 
         composable(Routes.Home.route) {
-            HomeScreen()
+            MainWithDrawer(navController)
         }
     }
 }

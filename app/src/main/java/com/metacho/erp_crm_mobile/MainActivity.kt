@@ -9,10 +9,9 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
 import com.metacho.erp_crm_mobile.ui.login.data.ILoginApiService
-import com.metacho.erp_crm_mobile.ui.login.data.LoginRepository
+import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 import com.metacho.erp_crm_mobile.ui.login.ui.AuthViewModel
 import com.metacho.erp_crm_mobile.ui.login.ui.AuthViewModelFactory
-import com.metacho.erp_crm_mobile.ui.login.ui.LoginViewModel
 import com.metacho.erp_crm_mobile.ui.navigation.AppNavigation
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

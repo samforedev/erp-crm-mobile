@@ -3,7 +3,7 @@ package com.metacho.erp_crm_mobile.ui.login.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
-import com.metacho.erp_crm_mobile.ui.login.data.LoginRepository
+import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

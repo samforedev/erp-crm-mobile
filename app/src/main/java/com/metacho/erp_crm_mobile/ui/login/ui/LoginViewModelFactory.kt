@@ -3,7 +3,7 @@ package com.metacho.erp_crm_mobile.ui.login.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
-import com.metacho.erp_crm_mobile.ui.login.data.LoginRepository
+import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 
 class LoginViewModelFactory(
     private val repository: LoginRepository,
