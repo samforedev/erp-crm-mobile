@@ -28,8 +28,7 @@ import com.metacho.erp_crm_mobile.ui.common.ui.components.DashboardCard
 fun HomeScreen(
     onEmployeesClick: () -> Unit,
     onCustomersClick: () -> Unit,
-    onReportsClick: () -> Unit,
-    modifier: Modifier
+    onReportsClick: () -> Unit
 ) {
     Column(
         modifier = Modifier

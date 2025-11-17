@@ -34,7 +34,6 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.metacho.erp_crm_mobile.ui.common.ui.components.GlassCard
 import com.metacho.erp_crm_mobile.ui.common.ui.components.LoginBackground
 import com.metacho.erp_crm_mobile.ui.theme.BlueAccent

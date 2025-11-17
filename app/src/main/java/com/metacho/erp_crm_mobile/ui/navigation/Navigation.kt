@@ -7,10 +7,12 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.metacho.erp_crm_mobile.ui.common.ui.components.MainWithDrawer
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
+import com.metacho.erp_crm_mobile.ui.home.ui.HomeScreen
 import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginScreen
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginViewModel
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginViewModelFactory
+import com.metacho.erp_crm_mobile.ui.user.ui.UserScreen
 
 @Composable
 fun AppNavigation(
@@ -41,7 +43,20 @@ fun AppNavigation(
         }
 
         composable(Routes.Home.route) {
-            MainWithDrawer(navController)
+            MainWithDrawer(navController) {
+                HomeScreen(
+                    onEmployeesClick = { navController.navigate(Routes.User.route) },
+                    onCustomersClick = { navController.navigate(Routes.User.route) },
+                    onReportsClick = { navController.navigate(Routes.User.route) }
+                )
+            }
         }
+
+        composable(Routes.User.route) {
+            MainWithDrawer(navController) {
+                UserScreen()
+            }
+        }
+
     }
 }

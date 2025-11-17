@@ -22,7 +22,10 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainWithDrawer(navController: NavController) {
+fun MainWithDrawer(
+    navController: NavController,
+    content: @Composable () -> Unit
+) {
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -31,7 +34,7 @@ fun MainWithDrawer(navController: NavController) {
         drawerContent = {
             AppDrawer(
                 onHomeClick = { navController.navigate(Routes.Home.route) },
-                onEmployeesClick = { /* TODO */ },
+                onEmployeesClick = { navController.navigate(Routes.User.route) },
                 onCustomersClick = { /* TODO */ },
                 onReportsClick = { /* TODO */ }
             )
@@ -40,21 +43,21 @@ fun MainWithDrawer(navController: NavController) {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("Inicio") },
+                    title = { Text("ERP / CRM") },
                     navigationIcon = {
-                        IconButton(onClick = { scope.launch { drawerState.open() } }) {
+                        IconButton(onClick = {
+                            scope.launch { drawerState.open() }
+                        }) {
                             Icon(Icons.Default.Menu, contentDescription = "Menu")
                         }
                     }
                 )
             }
         ) { padding ->
-            HomeScreen(
-                modifier = Modifier.padding(padding),
-                onEmployeesClick = { /* TODO */ },
-                onCustomersClick = { /* TODO */ },
-                onReportsClick = { /* TODO */ }
-            )
+            androidx.compose.foundation.layout.Box(Modifier.padding(padding)) {
+                content()
+            }
         }
     }
 }
+

@@ -33,8 +33,7 @@ fun AppDrawer(
     ) {
         Text(
             "ERP / CRM",
-            modifier = Modifier
-                .padding(24.dp),
+            modifier = Modifier.padding(24.dp),
             color = Color.White,
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
@@ -46,6 +45,7 @@ fun AppDrawer(
         DrawerItem("Reportes", Icons.Default.BarChart, onReportsClick)
     }
 }
+
 
 @Composable
 fun DrawerItem(
