@@ -12,12 +12,14 @@ import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginScreen
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginViewModel
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginViewModelFactory
+import com.metacho.erp_crm_mobile.ui.user.domain.UserRepository
 import com.metacho.erp_crm_mobile.ui.user.ui.UserScreen
 
 @Composable
 fun AppNavigation(
     isLogged: Boolean,
-    repository: LoginRepository,
+    loginRepository: LoginRepository,
+    userRepository: UserRepository,
     userPrefs: UserPreferences
 ) {
     val navController = rememberNavController()
@@ -29,7 +31,7 @@ fun AppNavigation(
 
         composable(Routes.Login.route) {
             val viewModel: LoginViewModel = viewModel(
-                factory = LoginViewModelFactory(repository, userPrefs)
+                factory = LoginViewModelFactory(loginRepository, userPrefs)
             )
 
             LoginScreen(
@@ -54,7 +56,9 @@ fun AppNavigation(
 
         composable(Routes.User.route) {
             MainWithDrawer(navController) {
-                UserScreen()
+                UserScreen(
+                    repository = userRepository
+                )
             }
         }
 

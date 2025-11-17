@@ -8,13 +8,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
-import com.metacho.erp_crm_mobile.ui.login.data.ILoginApiService
-import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 import com.metacho.erp_crm_mobile.ui.login.ui.AuthViewModel
 import com.metacho.erp_crm_mobile.ui.login.ui.AuthViewModelFactory
 import com.metacho.erp_crm_mobile.ui.navigation.AppNavigation
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : ComponentActivity() {
 
@@ -22,14 +18,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val api = Retrofit.Builder()
-            .baseUrl("https://metacho.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ILoginApiService::class.java)
-
-        val repository = LoginRepository(api)
         val userPrefs = UserPreferences(this)
+
+        val loginRetrofit = AppModule.provideLoginRetrofit()
+        val protectedRetrofit = AppModule.provideProtectedRetrofit(userPrefs)
+
+        val loginApi = AppModule.provideLoginApi(loginRetrofit)
+        val userApi = AppModule.provideUserApi(protectedRetrofit)
+
+        val loginRepository = AppModule.provideLoginRepository(loginApi)
+        val userRepository = AppModule.provideUserRepository(userApi)
+
 
         setContent {
 
@@ -41,7 +40,8 @@ class MainActivity : ComponentActivity() {
 
             AppNavigation(
                 isLogged = isLogged,
-                repository = repository,
+                loginRepository = loginRepository,
+                userRepository = userRepository,
                 userPrefs = userPrefs
             )
         }
