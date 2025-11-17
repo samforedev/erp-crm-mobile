@@ -7,4 +7,8 @@ import retrofit2.http.POST
 interface ILoginApiService {
     @POST("auth/api/v1/auth/login")
     suspend fun login(@Body request: LoginRequest): ApiResponse<LoginResponse>
+
+    @POST("auth/api/v1/auth/register")
+    suspend fun login(@Body request: CreateUserRequest): ApiResponse<String>
+
 }

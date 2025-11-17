@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -16,15 +17,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.metacho.erp_crm_mobile.ui.login.data.CreateUserRequest
+import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 import com.metacho.erp_crm_mobile.ui.user.data.dto.UserMinimal
 import com.metacho.erp_crm_mobile.ui.user.domain.UserRepository
 
 @Composable
 fun UserScreen(
     repository: UserRepository,
+    loginRepo: LoginRepository,
     onUserDetails: (String) -> Unit = {}
 ) {
-    val viewModel: UserViewModel = viewModel(factory = UserViewModelFactory(repository))
+    val viewModel: UserViewModel = viewModel(factory = UserViewModelFactory(repository, loginRepo))
     val state = viewModel.state.collectAsState().value
 
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
@@ -62,6 +66,20 @@ fun UserScreen(
             return
         }
 
+        Button(onClick = { viewModel.openCreateDialog() }) {
+            Icon(Icons.Default.PersonAdd, contentDescription = null)
+            Text("Nuevo empleado")
+        }
+
+        // 👉 AHORA sí pasas el viewModel correctamente
+        if (viewModel.showCreateDialog) {
+            CreateUserDialog(
+                viewModel = viewModel,
+                onDismiss = { viewModel.closeDialog() }
+            )
+        }
+
+        Spacer(Modifier.height(16.dp))
         // USERS LIST
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(12.dp)

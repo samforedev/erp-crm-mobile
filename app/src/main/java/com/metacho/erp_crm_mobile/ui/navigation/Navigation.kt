@@ -57,7 +57,8 @@ fun AppNavigation(
         composable(Routes.User.route) {
             MainWithDrawer(navController) {
                 UserScreen(
-                    repository = userRepository
+                    repository = userRepository,
+                    loginRepo = loginRepository
                 )
             }
         }
