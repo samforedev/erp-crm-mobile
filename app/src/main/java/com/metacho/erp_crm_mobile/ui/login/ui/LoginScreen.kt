@@ -20,6 +20,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.metacho.erp_crm_mobile.ui.common.ui.components.GlassCard
 import com.metacho.erp_crm_mobile.ui.common.ui.components.LoginBackground
 import com.metacho.erp_crm_mobile.ui.theme.BlueAccent
@@ -43,12 +45,17 @@ fun LoginScreen(
     viewModel: LoginViewModel,
     onLoginSuccess: () -> Unit) {
 
-    val state = viewModel.state.collectAsState()
+    val state by viewModel.state.collectAsState()
+
     var usernameOrEmail by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
     val focusManager = LocalFocusManager.current
-    if (state.value.success) {
-        onLoginSuccess()
+
+    LaunchedEffect(state.success) {
+        if (state.success) {
+            onLoginSuccess()
+        }
     }
 
     LoginBackground {
@@ -123,13 +130,13 @@ fun LoginScreen(
 
                     Button(
                         onClick = { viewModel.login(usernameOrEmail, password) },
-                        enabled = !state.value.isLoading,
+                        enabled = !state.isLoading,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp),
                         shape = RoundedCornerShape(12.dp),
                     ) {
-                        if (state.value.isLoading) {
+                        if (state.isLoading) {
                             CircularProgressIndicator(
                                 modifier = Modifier.size(22.dp),
                                 strokeWidth = 2.dp
@@ -139,10 +146,10 @@ fun LoginScreen(
                         }
                     }
 
-                    if (state.value.error != null) {
+                    if (state.error != null) {
                         Spacer(Modifier.height(16.dp))
                         Text(
-                            text = state.value.error ?: "",
+                            text = state.error ?: "",
                             color = Color.Red,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
