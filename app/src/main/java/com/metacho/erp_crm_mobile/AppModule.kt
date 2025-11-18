@@ -1,6 +1,8 @@
 package com.metacho.erp_crm_mobile
 
 import com.metacho.erp_crm_mobile.ui.common.data.AuthInterceptor
+import com.metacho.erp_crm_mobile.ui.customer.data.ICustomerApiService
+import com.metacho.erp_crm_mobile.ui.customer.domain.CustomerRepository
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
 import com.metacho.erp_crm_mobile.ui.login.data.ILoginApiService
 import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
@@ -39,9 +41,15 @@ object AppModule {
     fun provideUserApi(retrofit: Retrofit): IUserApiService =
         retrofit.create(IUserApiService::class.java)
 
+    fun provideCustomerApi(retrofit: Retrofit): ICustomerApiService =
+        retrofit.create(ICustomerApiService::class.java)
+
     fun provideLoginRepository(api: ILoginApiService) =
         LoginRepository(api)
 
     fun provideUserRepository(api: IUserApiService) =
         UserRepository(api)
+
+    fun provideCustomerRepository(api: ICustomerApiService) =
+        CustomerRepository(api)
 }

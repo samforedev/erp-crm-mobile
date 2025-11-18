@@ -8,6 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.metacho.erp_crm_mobile.ui.common.ui.components.MainWithDrawer
+import com.metacho.erp_crm_mobile.ui.customer.domain.CustomerRepository
+import com.metacho.erp_crm_mobile.ui.customer.ui.screen.CustomerScreen
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
 import com.metacho.erp_crm_mobile.ui.home.ui.HomeScreen
 import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
@@ -23,6 +25,7 @@ fun AppNavigation(
     isLogged: Boolean,
     loginRepository: LoginRepository,
     userRepository: UserRepository,
+    customerRepository: CustomerRepository,
     userPrefs: UserPreferences
 ) {
     val navController = rememberNavController()
@@ -51,7 +54,7 @@ fun AppNavigation(
             MainWithDrawer(navController) {
                 HomeScreen(
                     onEmployeesClick = { navController.navigate(Routes.User.route) },
-                    onCustomersClick = { navController.navigate(Routes.User.route) },
+                    onCustomersClick = { navController.navigate(Routes.Customer.route) },
                     onReportsClick = { navController.navigate(Routes.User.route) }
                 )
             }
@@ -83,6 +86,14 @@ fun AppNavigation(
                     repository = userRepository,
                     userId = userId,
                     onBack = { navController.navigate(Routes.User.route) }
+                )
+            }
+        }
+
+        composable(Routes.Customer.route) {
+            MainWithDrawer(navController) {
+                CustomerScreen(
+                    repository = customerRepository
                 )
             }
         }

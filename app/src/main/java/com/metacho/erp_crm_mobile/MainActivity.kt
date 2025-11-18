@@ -25,9 +25,11 @@ class MainActivity : ComponentActivity() {
 
         val loginApi = AppModule.provideLoginApi(loginRetrofit)
         val userApi = AppModule.provideUserApi(protectedRetrofit)
+        val customerApi = AppModule.provideCustomerApi(protectedRetrofit)
 
         val loginRepository = AppModule.provideLoginRepository(loginApi)
         val userRepository = AppModule.provideUserRepository(userApi)
+        val customerRepository = AppModule.provideCustomerRepository(customerApi)
 
 
         setContent {
@@ -42,6 +44,7 @@ class MainActivity : ComponentActivity() {
                 isLogged = isLogged,
                 loginRepository = loginRepository,
                 userRepository = userRepository,
+                customerRepository = customerRepository,
                 userPrefs = userPrefs
             )
         }

@@ -35,7 +35,7 @@ fun MainWithDrawer(
             AppDrawer(
                 onHomeClick = { navController.navigate(Routes.Home.route) },
                 onEmployeesClick = { navController.navigate(Routes.User.route) },
-                onCustomersClick = { /* TODO */ },
+                onCustomersClick = { navController.navigate(Routes.Customer.route) },
                 onReportsClick = { /* TODO */ }
             )
         }
