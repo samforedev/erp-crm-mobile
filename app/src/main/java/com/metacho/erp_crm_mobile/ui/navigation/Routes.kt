@@ -9,4 +9,8 @@ sealed class Routes(val route: String) {
     }
     object Customer: Routes("customer")
 
+    object CustomerDetail : Routes("customer_detail/{customerId}") {
+        fun createRoute(customerId: String) = "customer_detail/$customerId"
+    }
+
 }

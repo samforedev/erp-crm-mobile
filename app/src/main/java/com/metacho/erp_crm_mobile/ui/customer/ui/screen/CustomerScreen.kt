@@ -37,7 +37,8 @@ import com.metacho.erp_crm_mobile.ui.customer.ui.viewmodel.CustomerViewModel
 
 @Composable
 fun CustomerScreen(
-    repository: CustomerRepository
+    repository: CustomerRepository,
+    onCustomerDetails: (String) -> Unit
 ) {
     val viewModel: CustomerViewModel = viewModel(factory = CustomerViewModelFactory(repository))
     val state = viewModel.state.collectAsState().value
@@ -95,7 +96,7 @@ fun CustomerScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(state.customers) { customer ->
-                CustomerItem(customer = customer)
+                CustomerItem(customer = customer, onDetails = { onCustomerDetails(customer.id) })
             }
         }
     }
@@ -103,7 +104,8 @@ fun CustomerScreen(
 
 @Composable
 fun CustomerItem(
-    customer: CustomerMinimal
+    customer: CustomerMinimal,
+    onDetails: () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(containerColor = Color(0xFFF9FAFB)),
@@ -130,7 +132,7 @@ fun CustomerItem(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                IconButton(onClick = { /* detalles */ }) {
+                IconButton(onClick = onDetails) {
                     Icon(Icons.Default.Search, contentDescription = "Ver")
                 }
                 IconButton(onClick = { /* editar */ }) {

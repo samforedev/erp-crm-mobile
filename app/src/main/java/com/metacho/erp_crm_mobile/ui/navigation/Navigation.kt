@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.metacho.erp_crm_mobile.ui.common.ui.components.MainWithDrawer
 import com.metacho.erp_crm_mobile.ui.customer.domain.CustomerRepository
+import com.metacho.erp_crm_mobile.ui.customer.ui.screen.CustomerDetailScreen
 import com.metacho.erp_crm_mobile.ui.customer.ui.screen.CustomerScreen
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
 import com.metacho.erp_crm_mobile.ui.home.ui.HomeScreen
@@ -93,7 +94,28 @@ fun AppNavigation(
         composable(Routes.Customer.route) {
             MainWithDrawer(navController) {
                 CustomerScreen(
-                    repository = customerRepository
+                    repository = customerRepository,
+                    onCustomerDetails = { customerId ->
+                        navController.navigate( Routes.CustomerDetail.createRoute(customerId))
+                    }
+                )
+            }
+        }
+
+        composable(
+            route = Routes.CustomerDetail.route,
+            arguments = listOf(navArgument("customerId") {
+                type = NavType.StringType
+            })
+        ) { entry ->
+
+            val customerId = entry.arguments?.getString("customerId") ?: ""
+
+            MainWithDrawer(navController) {
+                CustomerDetailScreen (
+                    repository = customerRepository,
+                    customerId = customerId,
+                    onBack = { navController.navigate(Routes.Customer.route) }
                 )
             }
         }
