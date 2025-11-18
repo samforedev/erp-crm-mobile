@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.metacho.erp_crm_mobile.ui.common.ui.components.DropdownMenuBox
+import com.metacho.erp_crm_mobile.ui.user.ui.viewmodel.UserViewModel
 
 @Composable
 fun CreateUserDialog(viewModel: UserViewModel, onDismiss: () -> Unit) {

@@ -1,4 +1,4 @@
-package com.metacho.erp_crm_mobile.ui.user.ui
+package com.metacho.erp_crm_mobile.ui.user.ui.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

@@ -2,9 +2,11 @@ package com.metacho.erp_crm_mobile.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.metacho.erp_crm_mobile.ui.common.ui.components.MainWithDrawer
 import com.metacho.erp_crm_mobile.ui.data.UserPreferences
 import com.metacho.erp_crm_mobile.ui.home.ui.HomeScreen
@@ -13,7 +15,8 @@ import com.metacho.erp_crm_mobile.ui.login.ui.LoginScreen
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginViewModel
 import com.metacho.erp_crm_mobile.ui.login.ui.LoginViewModelFactory
 import com.metacho.erp_crm_mobile.ui.user.domain.UserRepository
-import com.metacho.erp_crm_mobile.ui.user.ui.UserScreen
+import com.metacho.erp_crm_mobile.ui.user.ui.screen.UserDetailsScreen
+import com.metacho.erp_crm_mobile.ui.user.ui.screen.UserScreen
 
 @Composable
 fun AppNavigation(
@@ -58,7 +61,28 @@ fun AppNavigation(
             MainWithDrawer(navController) {
                 UserScreen(
                     repository = userRepository,
-                    loginRepo = loginRepository
+                    loginRepo = loginRepository,
+                    onUserDetails = { userId ->
+                        navController.navigate( Routes.UserDetail.createRoute(userId) )
+                    }
+                )
+            }
+        }
+
+        composable(
+            route = Routes.UserDetail.route,
+            arguments = listOf(navArgument("userId") {
+                type = NavType.StringType
+            })
+        ) { entry ->
+
+            val userId = entry.arguments?.getString("userId") ?: ""
+
+            MainWithDrawer(navController) {
+                UserDetailsScreen(
+                    repository = userRepository,
+                    userId = userId,
+                    onBack = { navController.navigate(Routes.User.route) }
                 )
             }
         }

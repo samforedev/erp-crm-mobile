@@ -1,4 +1,4 @@
-package com.metacho.erp_crm_mobile.ui.user.ui
+package com.metacho.erp_crm_mobile.ui.user.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -17,16 +17,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.metacho.erp_crm_mobile.ui.login.data.CreateUserRequest
 import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 import com.metacho.erp_crm_mobile.ui.user.data.dto.UserMinimal
 import com.metacho.erp_crm_mobile.ui.user.domain.UserRepository
+import com.metacho.erp_crm_mobile.ui.user.ui.CreateUserDialog
+import com.metacho.erp_crm_mobile.ui.user.ui.viewmodel.UserViewModel
+import com.metacho.erp_crm_mobile.ui.user.ui.factory.UserViewModelFactory
 
 @Composable
 fun UserScreen(
     repository: UserRepository,
     loginRepo: LoginRepository,
-    onUserDetails: (String) -> Unit = {}
+    onUserDetails: (String) -> Unit
 ) {
     val viewModel: UserViewModel = viewModel(factory = UserViewModelFactory(repository, loginRepo))
     val state = viewModel.state.collectAsState().value

@@ -1,9 +1,10 @@
-package com.metacho.erp_crm_mobile.ui.user.ui
+package com.metacho.erp_crm_mobile.ui.user.ui.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.metacho.erp_crm_mobile.ui.login.domain.LoginRepository
 import com.metacho.erp_crm_mobile.ui.user.domain.UserRepository
+import com.metacho.erp_crm_mobile.ui.user.ui.viewmodel.UserViewModel
 
 class UserViewModelFactory(
     private val repository: UserRepository,

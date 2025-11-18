@@ -13,7 +13,7 @@ interface IUserApiService {
     @POST("users")
     suspend fun getAllUsers(@Body request: GetAll): ApiResponse<List<UserMinimal>>
 
-    @GET("{id}")
+    @GET("users/{id}")
     suspend fun getById(@Path("id") id: String): ApiResponse<UserDetail>
 
 }
